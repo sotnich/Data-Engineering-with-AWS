@@ -1,0 +1,524 @@
+{
+  "dag": {
+    "node-1668692819200": {
+      "classification": "DataSource",
+      "type": "S3",
+      "name": "S3 – Film-Category",
+      "inputs": [],
+      "database": "sakila",
+      "table": "film_category",
+      "runtimeParameters": [],
+      "isCatalog": true,
+      "generatedNodeName": "S3FilmCategory_node1668692819200",
+      "codeGenVersion": 2
+    },
+    "node-1668692913828": {
+      "classification": "DataSource",
+      "type": "S3",
+      "name": "S3 – Film",
+      "inputs": [],
+      "database": "sakila",
+      "table": "film",
+      "runtimeParameters": [],
+      "isCatalog": true,
+      "generatedNodeName": "S3Film_node1668692913828",
+      "codeGenVersion": 2
+    },
+    "node-1668692968605": {
+      "classification": "Transform",
+      "type": "Join",
+      "name": "Join – Film-Category_ID",
+      "inputs": [
+        "node-1668692913828",
+        "node-1668693090461"
+      ],
+      "joinType": "left",
+      "columns": [
+        {
+          "from": "node-1668692913828",
+          "keys": [
+            "film_id"
+          ]
+        },
+        {
+          "from": "node-1668693090461",
+          "keys": [
+            "(right) film_id"
+          ]
+        }
+      ],
+      "columnConditions": [
+        "="
+      ],
+      "generatedNodeName": "JoinFilmCategory_ID_node1668692968605",
+      "codeGenVersion": 2
+    },
+    "node-1668693090461": {
+      "name": "Renamed keys for Join",
+      "classification": "Transform",
+      "type": "ApplyMapping",
+      "inputs": [
+        "node-1668692819200"
+      ],
+      "mapping": [
+        {
+          "toKey": "(right) film_id",
+          "fromPath": [
+            "film_id"
+          ],
+          "fromType": "long",
+          "toType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "category_id",
+          "fromPath": [
+            "category_id"
+          ],
+          "fromType": "long",
+          "toType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "(right) last_update",
+          "fromPath": [
+            "last_update"
+          ],
+          "fromType": "string",
+          "toType": "string",
+          "dropped": false
+        }
+      ],
+      "generatedNodeName": "RenamedkeysforJoin_node1668693090461",
+      "codeGenVersion": 2
+    },
+    "node-1668693249061": {
+      "classification": "Transform",
+      "type": "ApplyMapping",
+      "inputs": [
+        "node-1668692968605"
+      ],
+      "name": "Select Fields",
+      "mapping": [
+        {
+          "toKey": "film_id",
+          "fromPath": [
+            "film_id"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "title",
+          "fromPath": [
+            "title"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "description",
+          "fromPath": [
+            "description"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "release_year",
+          "fromPath": [
+            "release_year"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "language_id",
+          "fromPath": [
+            "language_id"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "original_language_id",
+          "fromPath": [
+            "original_language_id"
+          ],
+          "toType": "double",
+          "fromType": "double",
+          "dropped": false
+        },
+        {
+          "toKey": "rental_duration",
+          "fromPath": [
+            "rental_duration"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": true
+        },
+        {
+          "toKey": "rental_rate",
+          "fromPath": [
+            "rental_rate"
+          ],
+          "toType": "double",
+          "fromType": "double",
+          "dropped": true
+        },
+        {
+          "toKey": "length",
+          "fromPath": [
+            "length"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "replacement_cost",
+          "fromPath": [
+            "replacement_cost"
+          ],
+          "toType": "double",
+          "fromType": "double",
+          "dropped": true
+        },
+        {
+          "toKey": "rating",
+          "fromPath": [
+            "rating"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "special_features",
+          "fromPath": [
+            "special_features"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "last_update",
+          "fromPath": [
+            "last_update"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": true
+        },
+        {
+          "toKey": "(right) film_id",
+          "fromPath": [
+            "(right) film_id"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": true
+        },
+        {
+          "toKey": "category_id",
+          "fromPath": [
+            "category_id"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "(right) last_update",
+          "fromPath": [
+            "(right) last_update"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        }
+      ],
+      "generatedNodeName": "SelectFields_node1668693249061",
+      "codeGenVersion": 2
+    },
+    "node-1668693834776": {
+      "classification": "DataSource",
+      "type": "S3",
+      "name": "S3 – Category",
+      "inputs": [],
+      "database": "sakila",
+      "table": "category",
+      "runtimeParameters": [],
+      "isCatalog": true,
+      "generatedNodeName": "S3Category_node1668693834776",
+      "codeGenVersion": 2
+    },
+    "node-1668693878127": {
+      "classification": "Transform",
+      "type": "Join",
+      "name": "Join",
+      "inputs": [
+        "node-1668693249061",
+        "node-1668693972120"
+      ],
+      "joinType": "left",
+      "columns": [
+        {
+          "from": "node-1668693249061",
+          "keys": [
+            "category_id"
+          ]
+        },
+        {
+          "from": "node-1668693972120",
+          "keys": [
+            "(right) category_id"
+          ]
+        }
+      ],
+      "columnConditions": [
+        "="
+      ],
+      "generatedNodeName": "Join_node1668693878127",
+      "codeGenVersion": 2
+    },
+    "node-1668693972120": {
+      "name": "Renamed keys for Join",
+      "classification": "Transform",
+      "type": "ApplyMapping",
+      "inputs": [
+        "node-1668693834776"
+      ],
+      "mapping": [
+        {
+          "toKey": "(right) category_id",
+          "fromPath": [
+            "category_id"
+          ],
+          "fromType": "long",
+          "toType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "(right) name",
+          "fromPath": [
+            "name"
+          ],
+          "fromType": "string",
+          "toType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "(right) last_update",
+          "fromPath": [
+            "last_update"
+          ],
+          "fromType": "string",
+          "toType": "string",
+          "dropped": false
+        }
+      ],
+      "generatedNodeName": "RenamedkeysforJoin_node1668693972120",
+      "codeGenVersion": 2
+    },
+    "node-1668694356802": {
+      "classification": "Transform",
+      "type": "ApplyMapping",
+      "name": "Change Schema (Apply Mapping)",
+      "inputs": [
+        "node-1668693878127"
+      ],
+      "mapping": [
+        {
+          "toKey": "film_id",
+          "fromPath": [
+            "film_id"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "title",
+          "fromPath": [
+            "title"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "description",
+          "fromPath": [
+            "description"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "release_year",
+          "fromPath": [
+            "release_year"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "language_id",
+          "fromPath": [
+            "language_id"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "original_language_id",
+          "fromPath": [
+            "original_language_id"
+          ],
+          "toType": "double",
+          "fromType": "double",
+          "dropped": false
+        },
+        {
+          "toKey": "length",
+          "fromPath": [
+            "length"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "rating",
+          "fromPath": [
+            "rating"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "special_features",
+          "fromPath": [
+            "special_features"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "category_id",
+          "fromPath": [
+            "category_id"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": false
+        },
+        {
+          "toKey": "(right) last_update",
+          "fromPath": [
+            "(right) last_update"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": true
+        },
+        {
+          "toKey": "(right) category_id",
+          "fromPath": [
+            "(right) category_id"
+          ],
+          "toType": "long",
+          "fromType": "long",
+          "dropped": true
+        },
+        {
+          "toKey": "category_name",
+          "fromPath": [
+            "(right) name"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        },
+        {
+          "toKey": "(right) last_update",
+          "fromPath": [
+            "(right) last_update"
+          ],
+          "toType": "string",
+          "fromType": "string",
+          "dropped": false
+        }
+      ],
+      "generatedNodeName": "ChangeSchemaApplyMapping_node1668694356802",
+      "codeGenVersion": 2
+    },
+    "node-1668694489936": {
+      "classification": "DataSink",
+      "type": "S3",
+      "name": "Amazon S3",
+      "inputs": [
+        "node-1668694356802"
+      ],
+      "format": "glueparquet",
+      "compression": "snappy",
+      "path": "s3://sotnich-test-curated/filmdb/film_category/",
+      "partitionKeys": [],
+      "updateCatalogOptions": "schemaAndPartitions",
+      "schemaChangePolicy": {
+        "enableUpdateCatalog": true,
+        "updateBehavior": "UPDATE_IN_DATABASE",
+        "database": "curatedzonedb",
+        "table": "film_category"
+      },
+      "additionalOptions": {},
+      "generatedNodeName": "AmazonS3_node1668694489936",
+      "codeGenVersion": 2
+    }
+  },
+  "jobConfig": {
+    "command": "glueetl",
+    "description": "",
+    "role": "arn:aws:iam::562912095613:role/SotnichTestDataEngGlueCWS3CuratedZoneRole",
+    "scriptName": "Film Category Denormalization.py",
+    "version": "3.0",
+    "language": "python-3",
+    "scriptLocation": "s3://aws-glue-assets-562912095613-eu-west-3/scripts/",
+    "temporaryDirectory": "s3://aws-glue-assets-562912095613-eu-west-3/temporary/",
+    "timeout": 2880,
+    "maxConcurrentRuns": 1,
+    "workerType": "G.1X",
+    "numberOfWorkers": "2",
+    "maxRetries": "0",
+    "metrics": true,
+    "security": "none",
+    "bookmark": "job-bookmark-disable",
+    "logging": true,
+    "spark": true,
+    "sparkPath": "s3://aws-glue-assets-562912095613-eu-west-3/sparkHistoryLogs/",
+    "serverEncryption": false,
+    "glueHiveMetastore": true,
+    "etlAutoScaling": false,
+    "etlAutoTuning": true,
+    "jobParameters": [],
+    "tags": [],
+    "connectionsList": [],
+    "jobMode": "VISUAL_MODE",
+    "useGlueProvidedDataLakeLibs": true,
+    "name": "Film Category Denormalization"
+  },
+  "hasBeenSaved": false
+}

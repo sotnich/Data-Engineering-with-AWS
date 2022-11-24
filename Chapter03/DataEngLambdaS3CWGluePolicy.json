@@ -16,10 +16,10 @@
                 "s3:*"
             ],
             "Resource": [
-                "arn:aws:s3:::dataeng-landing-zone-INITIALS/*",
-                "arn:aws:s3:::dataeng-landing-zone-INITIALS",
-                "arn:aws:s3:::dataeng-clean-zone-INITIALS/*",
-                "arn:aws:s3:::dataeng-clean-zone-INITIALS"
+                "arn:aws:s3:::sotnich-learn-dataeng-landing/*",
+                "arn:aws:s3:::sotnich-learn-dataeng-landing",
+                "arn:aws:s3:::sotnich-learn-dataeng-clean/*",
+                "arn:aws:s3:::sotnich-learn-dataeng-clean"
             ]
         },
         {
